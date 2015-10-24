@@ -4,35 +4,30 @@
 #include <time.h>
 
 #define MAX_SIZE 2600
-#define TARGET 'z'
+#define TARGET 'g'
 
-char smallest_character(char str[], char c);
+char smallest_character(char str[], char c, int size);
 
 int main()
 {
-    char line[MAX_SIZE];
+    char input[MAX_SIZE];
     char c = TARGET;
-    int i = 0;
+    int size = 0;
     FILE *fp = fopen("test.txt", "r");
-
-    while (fgets(line, sizeof(line), fp)) {
-        while (line[i] != '\0')
-            i++;
-        line[i - 1] = '\0';
-        i = 0;
-    }
-    char result = smallest_character(line, c);
+    while(fscanf(fp, "%c", &input[size]) != EOF)
+        size++;
+    char result = smallest_character(input, c, size);
     printf("Output : %c\n", result);
 
     return 0;
 }
 
 
-char smallest_character(char str[], char c)
+char smallest_character(char str[], char c, int size)
 {
     int i;
     char result = '\0';
-    for( i = 0 ; 'a'<=str[i] || str[i]>='z'; i++)
+    for( i = 0 ; i < size; i++)
         if ( str[i] > c ) {
             result = str[i];
             break;
